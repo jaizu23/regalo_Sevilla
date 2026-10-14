@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Sevilla — 21 al 23 de enero de 2027</title>
+<meta name="description" content="Un viaje sorpresa a Sevilla y Jerez.">
+
+<!-- Tipografía (única dependencia externa). Si no carga, hay fallbacks del sistema. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<script>
+/* =====================================================================
+   CONTENIDO DE LA PÁGINA — EDITA SOLO ESTE BLOQUE
+   ---------------------------------------------------------------------
+   Todo lo que se lee en la página sale de aquí. El resto del archivo
+   (estilos y código) no hace falta tocarlo.
+
+   Reglas rápidas:
+   - Los textos van entre comillas. Si necesitas una comilla dentro del
+     texto, usa la otra (p. ej. "le dije 'ven'").
+   - Las fotos se indican con una ruta relativa, p. ej. "img/giralda.jpg".
+     Sube las fotos a una carpeta "img" junto a este index.html.
+     Si dejas la ruta vacía ("") o el archivo no existe, se muestra un
+     recuadro con el texto "foto: …" y el diseño no se rompe.
+   - El orden de los bloques es el orden de la lista SECCIONES.
+     "abierta: true" hace que ese bloque aparezca desplegado al cargar.
+   ===================================================================== */
+
+const CONFIG = {
+
+  /* ---- Tema ----------------------------------------------------------
+     "claro"  -> siempre con la paleta de día (recomendado para el regalo)
+     "oscuro" -> siempre la versión de noche
+     "auto"   -> sigue el ajuste del móvil                                 */
+  tema: "claro",
+
+  /* ---- Personas ---------------------------------------------------- */
+  nombre:    "[nombre o apodo]",   // cómo la llamas
+  remitente: "[tu nombre]",        // tu nombre, para la firma final
+
+  /* ---- Cabecera ---------------------------------------------------- */
+  cabecera: {
+    etiqueta: "",                     // frase corta encima del título (vacío = no se muestra)
+    titulo:   "Nos vamos a Sevilla",
+    fechas:   "Del jueves 21 al sábado 23 de enero de 2027",
+    noches:   "Dos noches",
+    trayecto: ["Guadalajara", "Madrid", "Sevilla"],   // paradas del tren
+    trayectoNota: "",                 // nota bajo el trayecto (vacío = no se muestra)
+    intro:    ""                      // texto de bienvenida (vacío = no se muestra)
+  },
+
+  /* ---- Bloques (en orden) ------------------------------------------ */
+  SECCIONES: [
+
+    /* 1. Sevilla: galería de cuatro fotos con una frase cada una */
+    {
+      tipo: "galeria",
+      icono: "giralda",
+      titulo: "Sevilla",
+      abierta: true,
+      fotos: [
+        { src: "img/giralda.jpg",       alt: "La Giralda",             etiqueta: "foto: Giralda",
+          texto: "La torre que fue alminar y ahora es campanario." },
+        { src: "img/plaza-espana.jpg",  alt: "Plaza de España",        etiqueta: "foto: Plaza de España",
+          texto: "Una plaza diferente y espectacular. Con azulejos de todas las provincias" },
+        { src: "img/alcazar.jpg",       alt: "Real Alcázar",           etiqueta: "foto: Real Alcázar",
+          texto: "Palacio, patios y jardines. Esta vez no nos lo podemos dejar sin ver" },
+        { src: "img/triana.jpg",        alt: "Triana al atardecer",    etiqueta: "foto: Triana al atardecer",
+          texto: "El barrio al otro lado del río. Un atardecer precioso de los que nos gustan." }
+      ]
+    },
+
+    /* 2. Dónde dormimos: texto + tres fotos */
+    {
+      tipo: "texto",
+      icono: "naranja",
+      titulo: "Dónde dormimos",
+      abierta: false,
+      parrafos: [
+        "Apartamento “Dreaming Sevilla”, en la calle Placentines 1. A un minuto andando de la Giralda.",
+        "El edificio es de 1920, del arquitecto Aníbal González (el mismo de la Plaza de España), y tiene un patio de inspiración mudéjar lleno de naranjos y plantas."
+      ],
+      fotos: [
+        { src: "img/patio.jpg",         alt: "Patio del edificio",     etiqueta: "foto: patio" },
+        { src: "img/patio-2.jpg",       alt: "Patio del edificio",     etiqueta: "foto: patio" },
+        { src: "img/apartamento-1.jpg", alt: "Apartamento",            etiqueta: "foto: apartamento" },
+        { src: "img/apartamento-2.jpg", alt: "Apartamento",            etiqueta: "foto: apartamento" }
+      ]
+    },
+
+    /* 3. El plan: tres días */
+    {
+      tipo: "plan",
+      icono: "naranja",
+      titulo: "El plan",
+      abierta: false,
+      dias: [
+        { dia: "Jueves 21", subtitulo: "Llegada",
+          items: [
+            "Llegamos por la tarde y dejamos las cosas en el apartamento.",
+            "Catedral y subida a la Giralda justo al atardecer.",
+            "Las Setas de Sevilla ya iluminadas.",
+            "Cena de tapas por Santa Cruz."
+          ] },
+        { dia: "Viernes 22", subtitulo: "Jerez",
+          items: [
+            "Tren a Jerez de la Frontera por la mañana.",
+            "Una bodega (sigue bajando).",
+            "Tabanco con flamenco en vivo.",
+            "Vuelta a Sevilla para ver Triana al atardecer.",
+            "Noche en la Alameda de Hércules."
+          ] },
+        { dia: "Sábado 23", subtitulo: "Vuelta",
+          items: [
+            "Mañana tranquila, que nos costará levantarnos.",
+            "Real Alcázar a media mañana.",
+            "Plaza de España.",
+            "Comida en Triana y tren de vuelta."
+          ] }
+      ]
+    },
+
+    /* 4. Para ti: el regalo dentro del regalo */
+    {
+      tipo: "texto",
+      icono: "bota",
+      titulo: "Para ti",
+      abierta: false,
+      destacado: true,       // este bloque va un poco más marcado que el resto
+      parrafos: [
+        "Visita y cata en Bodegas Lustau, en Jerez. La experiencia se llama “El Lenguaje de la Tiza”: cata de cinco vinos premium y dos vinos VORS, de más de treinta años, con un vermut para terminar. Todo en unas bodegas del siglo XIX a las que llaman “catedrales del vino”."
+      ],
+      fotos: [
+        { src: "img/lustau.jpeg", alt: "Bodegas Lustau", etiqueta: "foto: Bodegas Lustau" }
+      ]
+    },
+
+    /* 5. Flamenco en un tabanco */
+    {
+      tipo: "texto",
+      icono: "bota",
+      titulo: "Flamenco en un tabanco",
+      abierta: false,
+      parrafos: [
+        "Tabanco El Pasaje, el más antiguo de Jerez: abrió en 1925 y sigue igual de pequeño.",
+        "Flamenco en vivo, sin micrófonos, a un metro de ti. De pie en la barra, con un fino y una tapa. Pase de las 14:00."
+      ],
+      fotos: [
+        { src: "img/tabanco.jpg", alt: "Tabanco El Pasaje", etiqueta: "foto: Tabanco El Pasaje" }
+      ]
+    },
+
+    /* 6. Viernes por la noche: una sola línea */
+    {
+      tipo: "linea",
+      icono: "naranja",
+      titulo: "Y el viernes por la noche…",
+      abierta: false,
+      linea: "La Alameda de Hércules. No puede faltar la buena fiesta sevillana.",
+      fotos: [
+        { src: "img/alameda.jpg", alt: "Alameda de Hércules de noche", etiqueta: "foto: Alameda de Hércules" }
+      ]
+    }
+  ],
+
+  /* ---- Cierre ------------------------------------------------------ */
+  cierre: {
+    frase: "Te amo churri, espero que lo disfrutes.",
+    fecha: "Sevilla, 21 – 23 de enero de 2027"
+  }
+};
+/* ======================== FIN DEL CONTENIDO ========================= */
+</script>
+
+<style>
+/* ---------- Paleta y tipografía ---------- */
+:root{
+  color-scheme: light;
+  --crema:        #FFF3DA;   /* fondo: crema de sol */
+  --crema-alto:   #FFE7B8;   /* resplandor cálido de la cabecera */
+  --panel:        #FFFBF1;   /* panel de los bloques abiertos */
+  --albero:       #F3D27A;   /* amarillo albero: huecos de foto, detalles */
+  --tinta:        #3B2616;   /* texto, marrón cálido */
+  --tinta-suave:  #7A5A40;   /* texto secundario */
+  --azulejo:      #0F4C9A;   /* azul cobalto de azulejo: títulos, estructura */
+  --azulejo-2:    #2E7BD1;   /* azul medio: reglas, cenefa */
+  --azulejo-blanco:#FFFFFF;  /* blanco de azulejo */
+  --naranja:      #F26A1B;   /* acento */
+  --naranja-2:    #C8480C;   /* acento oscuro para texto */
+  --hoja:         #3E8C48;
+  --linea:        rgba(15,76,154,.22);
+  --sombra:       0 10px 28px -14px rgba(120,70,20,.35);
+
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans:  "Nunito Sans", "Segoe UI", Roboto, system-ui, sans-serif;
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+/* Noche sevillana: azul profundo, no gris. Se aplica en "auto" (si el móvil
+   está en oscuro) o si CONFIG.tema = "oscuro". */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="claro"]){
+    color-scheme: dark;
+    --crema:       #0E2A52;
+    --crema-alto:  #163B70;
+    --panel:       #153566;
+    --albero:      #2A4F86;
+    --tinta:       #FFF0D2;
+    --tinta-suave: #D6C09A;
+    --azulejo:     #FFE9B8;
+    --azulejo-2:   #6FA6E6;
+    --azulejo-blanco:#FFF3DA;
+    --naranja:     #FF8A3D;
+    --naranja-2:   #FFA86A;
+    --hoja:        #8BD193;
+    --linea:       rgba(255,233,184,.22);
+    --sombra:      0 10px 28px -14px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="oscuro"]{
+  color-scheme: dark;
+  --crema:       #0E2A52;
+  --crema-alto:  #163B70;
+  --panel:       #153566;
+  --albero:      #2A4F86;
+  --tinta:       #FFF0D2;
+  --tinta-suave: #D6C09A;
+  --azulejo:     #FFE9B8;
+  --azulejo-2:   #6FA6E6;
+  --azulejo-blanco:#FFF3DA;
+  --naranja:     #FF8A3D;
+  --naranja-2:   #FFA86A;
+  --hoja:        #8BD193;
+  --linea:       rgba(255,233,184,.22);
+  --sombra:      0 10px 28px -14px rgba(0,0,0,.6);
+}
+html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+*,*::before,*::after{ box-sizing: inherit; }
+html,body{ margin:0; }
+body{
+  background:
+    radial-gradient(120% 60% at 50% -10%, var(--crema-alto) 0%, transparent 70%),
+    var(--crema);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img{ max-width:100%; display:block; }
+button{ font: inherit; color: inherit; }
+:focus-visible{ outline: 3px solid var(--naranja); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Cenefa de azulejo (separadores) ---------- */
+/* Rombos azul cobalto sobre blanco de azulejo, dibujados solo con CSS. */
+.cenefa{
+  height: 14px;
+  margin: 0;
+  border-top: 2px solid var(--azulejo);
+  border-bottom: 2px solid var(--azulejo);
+  background:
+    linear-gradient(45deg,  var(--azulejo) 25%, transparent 25% 75%, var(--azulejo) 75%),
+    linear-gradient(-45deg, var(--azulejo) 25%, transparent 25% 75%, var(--azulejo) 75%),
+    var(--azulejo-blanco);
+  background-size: 14px 14px;
+}
+
+/* ---------- Cabecera ---------- */
+.pagina{ max-width: 42rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header{ text-align: center; padding: .5rem 0 1.5rem; }
+.no8do{ width: 112px; height: auto; margin: 0 auto .75rem; display:block; color: var(--azulejo); }
+.etiqueta{
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--tinta-suave);
+  margin: 0 0 .35rem;
+  font-size: 1.05rem;
+}
+h1{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.3rem, 9vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: -.01em;
+  margin: 0 0 .75rem;
+  color: var(--azulejo);
+  font-variation-settings: "opsz" 144;
+}
+.fechas{ margin:0; font-size: 1.05rem; }
+.noches{ margin:.15rem 0 0; color: var(--tinta-suave); }
+
+/* Línea de tren: paradas unidas por una vía */
+.tren{
+  list-style:none; padding:0; margin: 1.5rem auto 0;
+  display:flex; justify-content:center; align-items:flex-start; gap:0;
+  font-family: var(--serif); font-size: 1rem;
+}
+.tren li{ position:relative; flex:1 1 0; max-width: 9rem; text-align:center; padding-top: 1.1rem; }
+.tren li::before{
+  content:""; position:absolute; top:.35rem; left:50%; transform:translateX(-50%);
+  width: 12px; height: 12px; border-radius:50%;
+  background: var(--crema); border: 3px solid var(--azulejo);
+}
+.tren li:last-child::before{ background: var(--naranja); border-color: var(--naranja); }
+.tren li:not(:last-child)::after{
+  content:""; position:absolute; top:.65rem; left:50%; width:100%; height:0;
+  border-top: 2px dashed var(--azulejo-2);
+}
+.tren-nota{ margin:.5rem 0 0; font-size:.9rem; color: var(--tinta-suave); }
+.intro{ margin: 1.5rem auto 0; max-width: 34rem; text-align:left; }
+
+/* ---------- Acordeón ---------- */
+.bloques{ margin: 1.75rem 0 0; }
+.bloque{ border-top: 1px solid var(--linea); }
+.bloque:last-child{ border-bottom: 1px solid var(--linea); }
+.bloque-panel .contenido{
+  background: var(--panel);
+  border-radius: 10px;
+  box-shadow: var(--sombra);
+}
+
+.bloque-btn{
+  width:100%; text-align:left; background:none; border:0; cursor:pointer;
+  display:flex; align-items:center; gap:.85rem;
+  padding: 1rem .25rem;
+  font-family: var(--serif); font-weight: 600; font-size: 1.45rem; line-height:1.15;
+  color: var(--azulejo);
+  font-variation-settings: "opsz" 72;
+  -webkit-tap-highlight-color: transparent;
+}
+.bloque-btn .icono{ flex: 0 0 auto; width: 30px; height: 30px; color: var(--naranja); }
+.bloque-btn .titulo{ flex:1 1 auto; }
+.bloque-btn .chevron{
+  flex:0 0 auto; width:18px; height:18px; color: var(--azulejo-2);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.bloque-btn[aria-expanded="true"] .chevron{ transform: rotate(180deg); }
+.bloque-btn[aria-expanded="true"] .titulo{ color: var(--naranja-2); }
+.bloque-btn:hover .titulo{ color: var(--naranja-2); }
+
+.bloque-panel{
+  display:grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .45s cubic-bezier(.2,.7,.2,1);
+}
+.bloque-panel[data-abierto="true"]{ grid-template-rows: 1fr; }
+.bloque-panel > .interior{ overflow:hidden; min-height:0; }
+.bloque-panel .contenido{ padding: 1.1rem 1.1rem 1.3rem; margin: 0 0 1.25rem; }
+
+/* Bloque destacado ("Para ti") */
+.bloque.destacado .bloque-btn .titulo{ font-style: italic; }
+.bloque.destacado .contenido{
+  border-left: 4px solid var(--naranja);
+  background: linear-gradient(90deg, rgba(242,106,27,.08), transparent 40%), var(--panel);
+}
+
+.contenido p{ margin: 0 0 .9rem; max-width: 36rem; }
+.contenido p:last-child{ margin-bottom: 0; }
+
+/* ---------- Fotos y huecos ---------- */
+.fotos{ display:grid; gap: 1rem; margin: 1rem 0 0; }
+.fotos.g2{ grid-template-columns: 1fr; }
+.fotos.g3{ grid-template-columns: repeat(3, 1fr); gap:.5rem; }
+.fotos.g4{ grid-template-columns: repeat(2, 1fr); gap:.5rem; }
+@media (min-width: 560px){ .fotos.g2{ grid-template-columns: 1fr 1fr; } }
+
+figure{ margin:0; }
+.foto{
+  position:relative; aspect-ratio: 4 / 3; overflow:hidden; border-radius: 8px;
+  background: var(--albero);
+}
+.foto img{ width:100%; height:100%; object-fit: cover; }
+.foto .hueco{
+  position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+  padding: .75rem; text-align:center;
+  font-family: var(--serif); font-style: italic; color: var(--azulejo);
+  border: 2px dashed var(--azulejo-2); border-radius: 8px;
+  background: repeating-linear-gradient(45deg, transparent 0 10px, rgba(255,255,255,.28) 10px 20px);
+}
+.foto.falta img{ display:none; }
+.foto.falta .hueco{ display:flex; }
+.fotos.g3 .foto, .fotos.g4 .foto{ aspect-ratio: 1; }
+.fotos.g3 .hueco, .fotos.g4 .hueco{ font-size: .85rem; }
+figcaption{ margin: .5rem 0 0; font-size: .95rem; color: var(--tinta); }
+figcaption::before{
+  content:""; display:inline-block; width:.45em; height:.45em; border-radius:50%;
+  background: var(--naranja); margin-right:.5em; vertical-align: .15em;
+}
+.fotos.g3 figcaption, .fotos.g4 figcaption{ display:none; }
+
+/* ---------- El plan ---------- */
+.dias{ display:grid; gap: 1.1rem; }
+.dia h3{
+  font-family: var(--serif); font-weight: 600; font-size: 1.2rem; margin: 0 0 .25rem;
+  color: var(--tinta);
+}
+.dia h3 span{ color: var(--tinta-suave); font-weight: 400; font-style: italic; }
+.dia ul{ margin:0; padding-left: 1.25rem; }
+.dia li{ margin: .2rem 0; }
+.dia li::marker{ color: var(--naranja); }
+
+/* ---------- Una línea ---------- */
+.linea{ font-family: var(--serif); font-size: 1.2rem; font-style: italic; margin:0; }
+
+/* ---------- Cierre ---------- */
+.cierre{ text-align:center; padding: 2.5rem 0 0; }
+.cierre .naranja-grande{ width: 56px; height:56px; margin: 0 auto 1rem; display:block; }
+.cierre blockquote{
+  margin: 0 auto; max-width: 30rem;
+  font-family: var(--serif); font-size: 1.4rem; line-height: 1.3; font-style: italic;
+  color: var(--tinta);
+}
+.cierre .firma{ margin: .9rem 0 0; font-family: var(--serif); font-size: 1.1rem; }
+.cierre .fecha{ margin: .25rem 0 0; color: var(--tinta-suave); font-size: .95rem; }
+
+/* ---------- Varios ---------- */
+.visually-hidden{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+noscript p{ text-align:center; padding: 2rem 1rem; }
+@media (prefers-reduced-motion: reduce){
+  .bloque-panel, .bloque-btn .chevron{ transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Símbolos SVG reutilizables (ilustraciones propias, sin iconos externos) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Naranja con hoja -->
+    <symbol id="ico-naranja" viewBox="0 0 32 32">
+      <circle cx="16" cy="19" r="11" fill="currentColor"/>
+      <circle cx="12.5" cy="15" r="3" fill="#fff" opacity=".22"/>
+      <path d="M16 8.5c0-3 1.5-5 3.5-6" fill="none" stroke="#6b4a2b" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M17 7.5c2.5-4 7-4.5 9.5-3-1 3.5-5 6-9.5 3z" fill="#3F7A45"/>
+    </symbol>
+    <!-- Silueta sencilla de la Giralda -->
+    <symbol id="ico-giralda" viewBox="0 0 32 32">
+      <g fill="currentColor">
+        <rect x="10" y="12" width="12" height="19"/>
+        <rect x="12" y="7" width="8" height="5"/>
+        <rect x="13.5" y="4" width="5" height="3"/>
+        <rect x="15" y="1.2" width="2" height="2.8"/>
+        <circle cx="16" cy="1.2" r="1.1"/>
+      </g>
+      <g fill="#fff" opacity=".7">
+        <rect x="12.5" y="15" width="2" height="4"/>
+        <rect x="17.5" y="15" width="2" height="4"/>
+        <rect x="12.5" y="22" width="2" height="4"/>
+        <rect x="17.5" y="22" width="2" height="4"/>
+      </g>
+    </symbol>
+    <!-- Bota de bodega (barril) -->
+    <symbol id="ico-bota" viewBox="0 0 32 32">
+      <path d="M8 6c4-2.5 12-2.5 16 0 2 4 2 16 0 20-4 2.5-12 2.5-16 0-2-4-2-16 0-20z" fill="currentColor"/>
+      <g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6">
+        <path d="M7 10c5 2 13 2 18 0M7 22c5 2 13 2 18 0"/>
+        <path d="M16 4v24" stroke-opacity=".35"/>
+      </g>
+    </symbol>
+    <!-- Chevron del acordeón -->
+    <symbol id="ico-chevron" viewBox="0 0 20 20">
+      <path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="pagina">
+
+  <header>
+    <!-- NO8DO: las letras NO y DO con la "madeja" (ocho) en medio -->
+    <svg class="no8do" viewBox="0 0 160 60" role="img" aria-label="NO8DO">
+      <text x="2" y="44" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="40" fill="currentColor">NO</text>
+      <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M80 10 C 66 10 66 30 80 30 C 94 30 94 50 80 50 C 66 50 66 30 80 30 C 94 30 94 10 80 10 Z"/>
+      </g>
+      <path d="M67 22 l-6 8 M93 38 l6-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      <text x="104" y="44" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="40" fill="currentColor">DO</text>
+    </svg>
+    <p class="etiqueta" id="etiqueta"></p>
+    <h1 id="titulo"></h1>
+    <p class="fechas" id="fechas"></p>
+    <p class="noches" id="noches"></p>
+    <ul class="tren" id="tren" aria-label="Trayecto en tren"></ul>
+    <p class="tren-nota" id="tren-nota"></p>
+    <p class="intro" id="intro"></p>
+  </header>
+
+  <div class="cenefa" aria-hidden="true"></div>
+
+  <main>
+    <div class="bloques" id="bloques"></div>
+    <noscript><p>Para ver el plan hace falta tener JavaScript activado en el navegador.</p></noscript>
+  </main>
+
+  <div class="cenefa" aria-hidden="true" style="margin-top:2rem"></div>
+
+  <footer class="cierre">
+    <svg class="naranja-grande" viewBox="0 0 32 32" aria-hidden="true" style="color:var(--naranja)"><use href="#ico-naranja"/></svg>
+    <blockquote id="cierre-frase"></blockquote>
+    <p class="firma" id="cierre-firma"></p>
+    <p class="fecha" id="cierre-fecha"></p>
+  </footer>
+
+</div>
+
+<script>
+/* =====================================================================
+   CÓDIGO — no hace falta tocarlo
+   Lee CONFIG y construye la página. Sin red, sin almacenamiento.
+   ===================================================================== */
+(function(){
+  "use strict";
+
+  /* ---------- Utilidades ---------- */
+  function el(tag, attrs, children){
+    const n = document.createElement(tag);
+    if (attrs) for (const k in attrs){
+      if (k === "class") n.className = attrs[k];
+      else if (k === "text") n.textContent = attrs[k];
+      else n.setAttribute(k, attrs[k]);
+    }
+    (children || []).forEach(c => { if (c) n.appendChild(c); });
+    return n;
+  }
+  function svgUse(id, cls){
+    const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    s.setAttribute("viewBox", id === "ico-chevron" ? "0 0 20 20" : "0 0 32 32");
+    s.setAttribute("aria-hidden", "true");
+    s.setAttribute("class", cls);
+    const u = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    u.setAttribute("href", "#" + id);
+    s.appendChild(u);
+    return s;
+  }
+
+  /* ---------- Figura con hueco si falta la foto ---------- */
+  function figura(f, conPie){
+    const img = el("img", { alt: f.alt || "", loading: "lazy", decoding: "async" });
+    const marco = el("div", { class: "foto" }, [ img, el("div", { class: "hueco", text: f.etiqueta || ("foto: " + (f.alt || "")) }) ]);
+    const marcar = () => marco.classList.add("falta");
+    if (!f.src) { marcar(); }
+    else {
+      img.addEventListener("error", marcar);
+      img.src = f.src;
+    }
+    const hijos = [marco];
+    if (conPie && f.texto) hijos.push(el("figcaption", { text: f.texto }));
+    return el("figure", null, hijos);
+  }
+
+  /* ---------- Contenido de cada tipo de bloque ---------- */
+  function contenido(sec){
+    const c = el("div", { class: "contenido" });
+    if (sec.tipo === "galeria"){
+      c.appendChild(el("div", { class: "fotos g2" }, sec.fotos.map(f => figura(f, true))));
+    }
+    else if (sec.tipo === "texto"){
+      (sec.parrafos || []).forEach(p => c.appendChild(el("p", { text: p })));
+      if (sec.fotos && sec.fotos.length){
+        const cls = sec.fotos.length === 4 ? "fotos g4" : sec.fotos.length >= 3 ? "fotos g3" : "fotos g2";
+        c.appendChild(el("div", { class: cls }, sec.fotos.map(f => figura(f, false))));
+      }
+    }
+    else if (sec.tipo === "plan"){
+      c.appendChild(el("div", { class: "dias" }, sec.dias.map(d =>
+        el("section", { class: "dia" }, [
+          el("h3", null, [ document.createTextNode(d.dia + " "), el("span", { text: d.subtitulo ? "— " + d.subtitulo : "" }) ]),
+          el("ul", null, d.items.map(i => el("li", { text: i })))
+        ])
+      )));
+    }
+    else if (sec.tipo === "linea"){
+      c.appendChild(el("p", { class: "linea", text: sec.linea }));
+      if (sec.fotos && sec.fotos.length){
+        c.appendChild(el("div", { class: "fotos g2" }, sec.fotos.map(f => figura(f, false))));
+      }
+    }
+    return c;
+  }
+
+  /* ---------- Acordeón ---------- */
+  function bloque(sec, i){
+    const idPanel = "panel-" + i, idBtn = "btn-" + i;
+    const abierto = !!sec.abierta;
+
+    const btn = el("button", {
+      class: "bloque-btn", id: idBtn, type: "button",
+      "aria-expanded": abierto ? "true" : "false", "aria-controls": idPanel
+    }, [
+      svgUse("ico-" + (sec.icono || "naranja"), "icono"),
+      el("span", { class: "titulo", text: sec.titulo }),
+      svgUse("ico-chevron", "chevron")
+    ]);
+
+    const panel = el("div", {
+      class: "bloque-panel", id: idPanel, role: "region",
+      "aria-labelledby": idBtn, "data-abierto": abierto ? "true" : "false"
+    }, [ el("div", { class: "interior" }, [ contenido(sec) ]) ]);
+    panel.hidden = !abierto;
+
+    btn.addEventListener("click", () => {
+      const ahora = btn.getAttribute("aria-expanded") === "true";
+      if (ahora){
+        btn.setAttribute("aria-expanded", "false");
+        panel.setAttribute("data-abierto", "false");
+        const fin = () => { if (panel.getAttribute("data-abierto") === "false") panel.hidden = true; };
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce) fin(); else panel.addEventListener("transitionend", fin, { once: true });
+      } else {
+        panel.hidden = false;
+        requestAnimationFrame(() => {        // dos frames para que la transición arranque desde 0fr
+          requestAnimationFrame(() => {
+            btn.setAttribute("aria-expanded", "true");
+            panel.setAttribute("data-abierto", "true");
+          });
+        });
+      }
+    });
+
+    const art = el("article", { class: "bloque" + (sec.destacado ? " destacado" : "") }, [ el("h2", { class: "visually-hidden", text: sec.titulo }), btn, panel ]);
+    // El h2 oculto da estructura a lectores de pantalla; el botón es el control visible.
+    return art;
+  }
+
+  /* ---------- Montaje ---------- */
+  const C = CONFIG, H = C.cabecera;
+  if (C.tema === "claro" || C.tema === "oscuro") document.documentElement.setAttribute("data-theme", C.tema);
+  document.getElementById("etiqueta").textContent = H.etiqueta || "";
+  document.getElementById("titulo").textContent = H.titulo || "";
+  document.getElementById("fechas").textContent = H.fechas || "";
+  document.getElementById("noches").textContent = H.noches || "";
+  document.getElementById("tren-nota").textContent = H.trayectoNota || "";
+  document.getElementById("intro").textContent = (H.intro || "").replace("[nombre]", C.nombre);
+  ["etiqueta","noches","tren-nota","intro"].forEach(id => {
+    const n = document.getElementById(id); if (!n.textContent.trim()) n.hidden = true;
+  });
+
+  const tren = document.getElementById("tren");
+  (H.trayecto || []).forEach(p => tren.appendChild(el("li", { text: p })));
+
+  const cont = document.getElementById("bloques");
+  C.SECCIONES.forEach((s, i) => cont.appendChild(bloque(s, i)));
+
+  document.getElementById("cierre-frase").textContent = C.cierre.frase || "";
+  document.getElementById("cierre-fecha").textContent = C.cierre.fecha || "";
+})();
+</script>
+</body>
+</html>
